@@ -4,7 +4,6 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.log4j.BasicConfigurator;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -12,7 +11,6 @@ import java.io.IOException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static org.junit.Assert.assertEquals;
 
 public class WiremockJunitTest {
 
@@ -21,7 +19,6 @@ public class WiremockJunitTest {
 
     @Test
     public void assertWiremockSetup() throws IOException {
-        BasicConfigurator.configure();
 
         // Arrange - setup wiremock stubs
         configureStubs();
@@ -45,8 +42,8 @@ public class WiremockJunitTest {
 
         // Act - call the endpoint
         Response response1 = client.newCall(request1).execute();
-        Response response2 = client.newCall(request1).execute();
-        Response response3 = client.newCall(request1).execute();
+        Response response2 = client.newCall(request2).execute();
+        Response response3 = client.newCall(request3).execute();
 
         System.out.println("----------------");
         System.out.println(response1.body().string());
@@ -63,11 +60,11 @@ public class WiremockJunitTest {
     // configure stubs for wiremock
     private void configureStubs() {
         configureFor("localhost", 8080);
-        stubFor(get(urlEqualTo("/test/abc"))
-                .willReturn(aResponse().withBody("Test1 success!")));
         stubFor(get(urlEqualTo("/test/abc1"))
-                .willReturn(aResponse().withBody("Test2 success!")));
+                .willReturn(aResponse().withBody("Test1 success!")));
         stubFor(get(urlEqualTo("/test/abc2"))
+                .willReturn(aResponse().withBody("Test2 success!")));
+        stubFor(get(urlEqualTo("/test/abc3"))
                 .willReturn(aResponse().withBody("Test3 success!")));
     }
 
