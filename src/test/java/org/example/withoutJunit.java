@@ -1,20 +1,10 @@
 package org.example;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.common.FileSource;
-import com.github.tomakehurst.wiremock.extension.Parameters;
-import com.github.tomakehurst.wiremock.http.ResponseDefinition;
-import com.github.tomakehurst.wiremock.stubbing.StubMapping;
-import okhttp3.Request;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static wiremock.org.eclipse.jetty.webapp.MetaDataComplete.True;
 
 public class withoutJunit {
     public static void main(String[] args) {
@@ -36,11 +26,9 @@ public class withoutJunit {
             wm.stubFor(get(urlMatching("/posts"))
                     .willReturn(aResponse().proxiedFrom("https://jsonplaceholder.typicode.com")));
 
-
-
-        stubFor(get(urlEqualTo("/posts"))
-                .willReturn(aResponse()
-                        .withBodyFile("resp.json")));
+//        stubFor(get(urlEqualTo("/posts"))
+//                .willReturn(aResponse()
+//                        .withBodyFile("resp.json")));
 
         stubFor(get("/json")
                 .willReturn(okJson("{ \"message\": \"Hello\" }")));
