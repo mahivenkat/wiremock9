@@ -3,6 +3,8 @@ package org.example;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 public class InitiateTransformer {
@@ -11,6 +13,5 @@ public class InitiateTransformer {
         WireMockServer wm =  new WireMockServer(wireMockConfig()
                 .extensions("org.example.ExampleTransformer"));
         wm.start();
-
     }
 }
